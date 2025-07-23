@@ -1,16 +1,24 @@
 class Solution {
-    public int[] twoSum(int[] num, int target) {
+    public int[] twoSum(int[] numbers, int target) {
         
         int left = 0;
-        int right = num.length-1;
+        int right = numbers.length-1;
 
-        while(num[left]+num[right] != target)
+        while(left<=right)
         {
-            if(num[left]+num[right] < target)
-            left++;
-            else
-            right--;
+            int sum= numbers[left] + numbers[right];
+
+            if(sum == target)
+            {
+                return new int[] {left+1, right+1};
+            }else if(sum < target)
+            {
+                left++;
+            }else
+            {
+                right--;
+            }
         }
-        return new int[]{left+1 , right+1};
+        return new int[] {left+1, right+1};
     }
 }
