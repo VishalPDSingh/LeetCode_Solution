@@ -1,17 +1,18 @@
 class Solution {
     public int largestAltitude(int[] gain) {
         
+        int startPoint = 0;
         int maxHeight = 0;
-        int currHeight = 0;
 
         for(int i=0; i<gain.length; i++)
         {
-            currHeight = currHeight + gain[i];
-            if(currHeight > maxHeight)
+            startPoint += gain[i];
+            if(startPoint > maxHeight)
             {
-                maxHeight = currHeight;
+                maxHeight = startPoint;
             }
+
         }
-            return maxHeight;
+        return maxHeight;
     }
 }
