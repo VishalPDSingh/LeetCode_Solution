@@ -1,31 +1,38 @@
 class Solution {
-    public int[] fairCandySwap(int[] a, int[] b) {
-
-      int ans[] = new int[2];
-       int sumA = 0;
-       int sumB = 0;
-       for(int i=0; i<a.length; i++)
-       {
-        sumA+=a[i];
-       }
-       for(int j=0; j<b.length; j++)
-       {
-        sumB+=b[j];
-       }
-
-       for(int i=0; i<a.length; i++)
-       {
-        for(int j=0; j<b.length; j++)
+    public int[] fairCandySwap(int[] alice, int[] bob) {
+        
+        Arrays.sort(alice);
+        Arrays.sort(bob);
+        int sumA=0;
+        int sumB=0;
+        for(int a:alice)
         {
-            if(sumA-a[i]+b[j] == sumB-b[j]+a[i])
+            sumA+=a;
+        }
+        for(int b:bob)
+        {
+            sumB+=b;
+        }
+
+        int diff = (sumB-sumA)/2;
+        int i=0;
+        int j=0;
+
+        while(i<alice.length && j<bob.length)
+        {
+            int currdiff = bob[j] - alice[i];
+            if(diff == currdiff)
             {
-                ans[0] = a[i];
-                ans[1] = b[j];
-                return ans;
+                return new int[] {alice[i],bob[j]};
+            }else if(currdiff < diff)
+            {
+                j++;
+            }else
+            {
+                i++;
             }
         }
-       }
-       return ans;
+        return new int[] {0,0};
         
     }
 }
