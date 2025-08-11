@@ -1,16 +1,19 @@
 class Solution {
-    public int countNegatives(int[][] a) {
+    public int countNegatives(int[][] arr) {
         
-         int count =0;
-        for(int i=0; i<a.length; i++)
-        {
-            for(int j=0; j<a[0].length; j++)
-            {
-                if(a[i][j]<0)
-                count++;
+          int i = 0; 
+        int j = arr[0].length - 1;
+        int count = 0;
+
+        while (i < arr.length && j >= 0) {
+            if (arr[i][j] < 0) {
+                // all elements below this are also negative
+                count += arr.length - i;
+                j--; // move left
+            } else {
+                i++; // move down
             }
         }
         return count;
-
     }
 }
