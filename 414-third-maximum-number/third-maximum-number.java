@@ -1,26 +1,30 @@
 class Solution {
     public int thirdMax(int[] nums) {
-         long first = Long.MIN_VALUE;
-        long second = Long.MIN_VALUE;
-         long third = Long.MIN_VALUE;
-        for(int n:nums)
-        {
-            if(n==first || n==second|| n==third)
-            {
-                continue;
+        
+        // Sort the array in descending order
+        Arrays.sort(nums);
+        
+        // Reverse the sorted array for easy max access
+        int[] desc = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            desc[i] = nums[nums.length - 1 - i];
+        }
+
+        // Count distinct numbers while iterating
+        int distinctCount = 1;  // first number is always distinct
+        int prev = desc[0];
+
+        for (int i = 1; i < desc.length; i++) {
+            if (desc[i] != prev) {
+                distinctCount++;
+                prev = desc[i];
             }
-            if(n>first)
-            {
-                third = second;
-                second = first;
-                first = n;
-            }else if (n > second) {
-                third = second;
-                second = n;
-            } else if (n > third) {
-                third = n;
+            if (distinctCount == 3) {
+                return desc[i]; // third distinct found
             }
         }
-        return  third == Long.MIN_VALUE ? (int) first : (int) third;   
+
+        // If less than 3 distinct numbers, return the maximum
+        return desc[0];
     }
 }
