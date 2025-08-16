@@ -1,28 +1,25 @@
 class Solution {
     public int missingNumber(int[] nums) {
         
-         int i=0;
-        while (i<nums.length) 
-        {
-            int correct = nums[i];
-            if(nums[i] <nums.length && nums[i]!=nums[correct])
-            {
-                int temp = nums[i];
-                nums[i] = nums[correct];
-                nums[correct] = temp;
-            }else
-            {
-                i++;
+        if (nums == null || nums.length == 0) {
+            return -1; // no valid input
+        }
+
+        // Create count array of length n+1 (since numbers are from 0..n)
+        int count[] = new int[nums.length + 1];
+
+        // Mark presence of each number
+        for (int i = 0; i < nums.length; i++) {
+            count[nums[i]]++;
+        }
+
+        // Check which index is missing
+        for (int i = 0; i < count.length; i++) {
+            if (count[i] == 0) {
+                return i; // missing number found
             }
         }
-        //search for missing numbers
-        for(int index=0; index<nums.length; index++)
-        {
-            if(nums[index]!=index)
-            {
-                return index;
-            }
-        }
-        return nums.length;
+
+        return -1; // fallback (should never reach here because one number is guaranteed missing)
     }
 }
