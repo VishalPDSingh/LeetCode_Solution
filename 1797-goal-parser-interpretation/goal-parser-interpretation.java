@@ -1,8 +1,20 @@
 class Solution {
     public String interpret(String command) {
+        StringBuilder sb = new StringBuilder();
 
-       String str = command.replace("()", "o");
-       str =str.replace("(al)", "al");
-       return str; 
+        for (int i = 0; i < command.length(); ) {
+            if (command.charAt(i) == 'G') {
+                sb.append("G");
+                i++;
+            } else if (command.charAt(i) == '(' && command.charAt(i + 1) == ')') {
+                sb.append("o");
+                i += 2;
+            } else { // must be "(al)"
+                sb.append("al");
+                i += 4;
+            }
+        }
+
+        return sb.toString();
     }
 }
